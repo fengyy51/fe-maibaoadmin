@@ -153,7 +153,7 @@
                     url: '/collect/vote-result',
                     method: 'get',
                     params: {
-                        actId:self.$route.params.id,
+                        id:self.$route.params.id,
                         itemId: parseInt(itemId),
                         curPage: self.cur_page,
                         pageSum: self.pageSum

@@ -51,6 +51,8 @@
             </el-table-column>
             <el-table-column prop="ip" label="ip地址" :formatter="formatter_ip"sortable>
             </el-table-column>
+            <el-table-column prop="address" label="实际地址" :formatter="formatter_address"sortable>
+            </el-table-column>
             <el-table-column prop="addtime" label="添加时间" sortable>
             </el-table-column>
             <el-table-column prop="record" label="投票记录" sortable>
@@ -189,6 +191,9 @@
         methods: {
             formatter_ip(row,column){
                 return row.ip;
+            },
+            formatter_address(row,column){
+                return row.address;
             },
             formatter_voteId(row,column){
                 return row.voteId;
