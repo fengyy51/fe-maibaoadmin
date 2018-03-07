@@ -18,7 +18,7 @@
                 <el-menu-item index="/act-addinfo/0">
                     <i class="fa fa-calendar-o" aria-hidden="true"></i>&nbsp;&nbsp;自定义报名项
                 </el-menu-item>
-                <el-menu-item index="/item-list"><i class="fa fa-file-image-o" aria-hidden="true"></i>&nbsp;&nbsp;报名数据审核</el-menu-item>
+                <el-menu-item index="/item-list"><i class="fa fa-file-image-o" aria-hidden="true"></i>&nbsp;&nbsp;发起投票</el-menu-item>
                 <el-menu-item index="/vote-list"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;&nbsp;投票活动列表</el-menu-item>
             </el-submenu>
             <el-submenu index="2" >
@@ -32,9 +32,10 @@
                 <el-menu-item index="/vote-brush"><i class="fa fa-ticket" aria-hidden="true"></i>&nbsp;&nbsp;刷票统计</el-menu-item>
                 <el-menu-item index="/user-behavior"><i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;&nbsp;用户行为习惯分析</el-menu-item>
             </el-submenu>
-            <!--             <el-menu-item index="/coupon">
-                <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;&nbsp;优惠管理
-            </el-menu-item> -->
+            <el-menu-item index="/gallery"><i class="fa fa-file-image-o" aria-hidden="true"></i>&nbsp;&nbsp;专题管理</el-menu-item>
+            <!--<el-menu-item index="/coupon">-->
+                <!--<i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;&nbsp;优惠管理-->
+            <!--</el-menu-item>-->
             <!--<el-menu-item index="/map">-->
                 <!--<i class="fa fa-map" aria-hidden="true"></i>&nbsp;&nbsp;地图 demo-->
             <!--</el-menu-item>-->

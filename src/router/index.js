@@ -105,6 +105,11 @@ var router = new Router({
                     path:'/user-behavior',
                     component:resolve=>require(['../components/page/User-behavior.vue'],resolve)
                 },
+            //    专题管理
+                {
+                    path:'/gallery',
+                    component:resolve=>require(['../components/page/Gallery-list.vue'],resolve)
+                },
             ],
         },
         {

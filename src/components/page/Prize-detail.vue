@@ -15,7 +15,7 @@
                 <file-upload
                     prop="files"
                     class="btn btn-primary"
-                    post-action="http://localhost:8083/manual/excel/prize"
+                    post-action="http://www.maibaoscratch.com:8083/manual/excel/prize"
                     extensions=""
                     accept="xlsx,xls"
                     :multiple="false"
