@@ -25,7 +25,7 @@
             </el-form>
         </div>
         <div class="top-btn-left">
-        <el-button type="primary" v-if="Admin=='binwang158'" @click="addAdmin">添加管理者</el-button>
+            <el-button type="primary" v-if="Admin=='binwang158'" @click="addAdmin">添加管理者</el-button>
         </div>
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="name" label="活动名称">
@@ -135,6 +135,10 @@
 //            增加专题活动管理员
             addAdmin(){
                 this.$modal.show('add-admin-modal');
+            },
+//            全部审核通过
+            allPass(){
+
             },
             closeAdminModal(){
                 this.$modal.hide('add-admin-modal');

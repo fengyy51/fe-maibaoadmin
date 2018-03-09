@@ -109,7 +109,7 @@
         </div>
         <div class="top-btn top-btn-left">
             <el-button type="primary" @click="openVoteModal">发起投票</el-button>
-            <el-button type="danger" @click="openVoteLinkModal">投票页面链接</el-button>
+            <!--<el-button type="danger" @click="openVoteLinkModal">投票页面链接</el-button>-->
             <!--<el-button type="primary" @click="openFirstImgModal">上传首屏展示图</el-button>-->
         </div>
         <div class="top-btn top-btn-right">

@@ -108,11 +108,12 @@
 
         </div>
         <div class="top-btn top-btn-left">
-            <el-button type="primary" @click="openVoteModal">发起投票</el-button>
-            <el-button type="danger" @click="openVoteLinkModal">投票页面链接</el-button>
+            <el-button type="info" @click="updateAllStatus">{{allStatus}}</el-button>
+            <!--<el-button type="danger" @click="openVoteLinkModal">投票页面链接</el-button>-->
             <!--<el-button type="primary" @click="openFirstImgModal">上传首屏展示图</el-button>-->
         </div>
         <div class="top-btn top-btn-right">
+            <el-button type="primary" @click="openVoteModal">发起投票</el-button>
             <!--<el-button type="success" @click="openMulImgModal">上传详情图</el-button>-->
         </div>
         <el-table :data="tableData" border style="width: 100%" v-loading.body="loading">
@@ -197,6 +198,7 @@
                     name:'',
                     type: -1,
                 },
+                allStatus:"全部审核通过",
                 tableData: [],
                 pageSum: 10,
                 sum: 0,
@@ -316,6 +318,55 @@
             linkToOtherUrl(){
                 var id=this.$route.params.id;
                 window.location.href="http://wechat.tuopinpin.com/goods/page/listWork.html?id="+id;
+            },
+            updateAllStatus(){
+                if(this.allStatus=="全部审核通过"){
+                    this.allPass();
+                }else{
+                    this.allReject();
+                }
+            },
+            allPass(){
+                var id=this.$route.params.id;
+                var self=this;
+                self.$axios({
+                    url:'/gallery/allpass',
+                    method:'post',
+                    params:{
+                       galleryId:id
+                    }
+                })
+                    .then((res) => {
+                        if (res != null && res.data.result){
+                            self.$message('全部审核通过成功!');
+                            self.allStatus="全部取消通过";
+                            this.getData();
+                        }
+                        else{
+                            self.$message.error("全部审核通过失败！");
+                        }
+                    })
+            },
+            allReject(){
+                var id=this.$route.params.id;
+                var self=this;
+                self.$axios({
+                    url:'/gallery/allreject',
+                    method:'post',
+                    params:{
+                        galleryId:id
+                    }
+                })
+                    .then((res) => {
+                        if (res != null && res.data.result){
+                            self.$message('全部取消审核成功!');
+                            self.allStatus="全部审核通过";
+                            this.getData();
+                        }
+                        else{
+                            self.$message.error("全部取消审核失败！");
+                        }
+                    })
             },
             resetForm(){
                 this.begin='';
