@@ -118,8 +118,8 @@
         <el-table :data="tableData" border style="width: 100%" v-loading.body="loading">
             <template>
                 <!--index为自增序号，id为活动中的id为数据库中保存的，此程序中保留id，仅不显示-->
-                <el-table-column type="index" width="100">
-                </el-table-column>
+                <!--<el-table-column type="index" width="100">-->
+                <!--</el-table-column>-->
                 <!--<el-table-column label="序号" prop="id" :formatter="formatter_id">-->
                 <!--</el-table-column>-->
                 <el-table-column label="微信id" prop="openId">
@@ -350,7 +350,7 @@ export default {
     methods: {
         linkToOtherUrl(){
             var id=this.$route.params.id;
-            window.location.href="http://localhost:63342/fe-frontOfBinwang/dist/goods/page/listWork.html?_ijt=l4ekkb7lmq13skv9jsejkpgqhh&id="+id;
+            window.location.href="http://wechat.tuopinpincom/goods/page/listWork.html?_ijt=l4ekkb7lmq13skv9jsejkpgqhh&id="+id;
         },
         resetForm(){
             this.begin='';
@@ -422,7 +422,7 @@ export default {
             this.$modal.show('vote-link-modal');
             setTimeout(function () {
                 var id=localStorage.getItem("id");
-                document.getElementById("vote-link").innerHTML='http://fbinwang.liuhongnan.com/goods/page/listWork.html?id='+id;
+                document.getElementById("vote-link").innerHTML='http://wechat.tuopinpin.com/goods/page/listWork.html?id='+id;
             },100)
         },
         closeVoteLinkModal(){

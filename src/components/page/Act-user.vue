@@ -30,8 +30,8 @@
                 <el-tag>共{{sum}}个用户</el-tag>
         </div>
         <el-table :data="allData" border style="display: none;" v-loading.body="loading">
-            <el-table-column type="index" width="100" >
-            </el-table-column>
+            <!--<el-table-column type="index" width="100" >-->
+            <!--</el-table-column>-->
             <el-table-column label="微信id" prop="openId">
             </el-table-column>
             <el-table-column label="验证码" prop="code">
@@ -70,8 +70,8 @@
             </el-table-column>
         </el-table>
         <el-table :data="tableData" border style="width: 100%" v-loading.body="loading">
-            <el-table-column type="index" width="100" >
-            </el-table-column>
+            <!--<el-table-column type="index" width="100" >-->
+            <!--</el-table-column>-->
             <el-table-column label="微信id" prop="openId">
             </el-table-column>
             <el-table-column label="验证码" prop="code">

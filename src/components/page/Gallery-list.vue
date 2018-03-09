@@ -24,9 +24,9 @@
                 </el-form-item>
             </el-form>
         </div>
-        <!--<div class="top-btn">-->
-        <!--<el-button type="primary" @click="linkToOtherUrl('0','/act-list/detail/')">添加</el-button>-->
-        <!--</div>-->
+        <div class="top-btn-left">
+        <el-button type="primary" v-if="Admin=='binwang158'" @click="addAdmin">添加管理者</el-button>
+        </div>
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="name" label="活动名称">
             </el-table-column>
@@ -36,7 +36,7 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template scope="scope">
-                    <el-button size="small" type="success" @click="handleVote(scope.row.id)">作品审核</el-button>
+                    <el-button size="small" type="success" @click="handleGallery(scope.row.id)">作品审核</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -45,13 +45,30 @@
                             :pageSize="pageSum" :page-sizes="[2,4,6,8,10,12,14]" layout="total,sizes, prev, pager, next, jumper"  :total="sum">
             </el-pagination>
         </div>
+        <!--增加活动管理员-->
+        <modal name="add-admin-modal" transition="pop-out" :height="420" :pivotY="0.2">
+            <div class="modal_close_btn">
+                <i class="el-icon-close" @click="closeAdminModal"></i>
+            </div>
+            <div class="modal-form">
+            <el-form ref="addAdminForm" :model="addAdminForm" :rules="rules" label-width="80px" >
+                <el-form-item label="专题活动名称" prop="gallery_name">
+                    <el-input v-model="addAdminForm.gallery_name"  class="form_middle"></el-input>
+                </el-form-item>
+                <br/>
+                <el-form-item label="活动管理员名称" prop="admin_name">
+                    <el-input v-model="addAdminForm.admin_name"  class="form_middle"></el-input>
+                </el-form-item>
+                <br/>
+                <el-form-item class="modal-btn-group">
+                    <el-button type="primary" @click="addAdminSubmit">确定</el-button>
+                    <el-button @click="closeAdminModal">取消</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        </modal>
     </div>
 </template>
-<style type="text/css">
-    .search_input {
-        width: 150px!important;
-    }
-</style>
 <script>
     import {
         GetCurrentDate,
@@ -68,12 +85,30 @@
                     begin: '',
                     end: ''
                 },
+                Admin:"",
                 tempBegin: '',
                 tempEnd: '',
                 tableData: [],
                 pageSum: 10,
                 sum: 0,
-                cur_page: 1
+                cur_page: 1,
+                addAdminForm:{
+                    gallery_name:"",
+                    admin_name:""
+                },
+                rules:{
+                    gallery_name:[{
+                        required:true,
+                        message:"请输入专题活动名称",
+                        trigger:"blur"}],
+                    admin_name:[{
+                        required:true,
+                        message:"请输入管理员名称",
+                        trigger:'blur'
+                    }]
+                }
+
+
             }
         },
         watch: {
@@ -86,6 +121,9 @@
         },
         mounted() {
             this.getData();
+            var wsCache = window.$wsCache;
+            var username=wsCache.get("username");
+            this.Admin=username;
         },
         methods: {
             linkToOtherUrl(id, url) {
@@ -93,6 +131,40 @@
                     this.$router.push(url + "0");
                 else
                     this.$router.push(url + id);
+            },
+//            增加专题活动管理员
+            addAdmin(){
+                this.$modal.show('add-admin-modal');
+            },
+            closeAdminModal(){
+                this.$modal.hide('add-admin-modal');
+            },
+            addAdminSubmit(){
+                var actId = this.$route.params.id;
+                const self=this;
+                self.$refs["addAdminForm"].validate((valid) => {
+                    if (valid) {
+                        var wsCache = window.$wsCache;
+                        var username=wsCache.get("username");
+                        self.$axios({
+                            url:'/gallery/add-admin',
+                            method:'post',
+                            params:{
+                                galleryName:self.addAdminForm.gallery_name,
+                                galleryAdmin:self.addAdminForm.admin_name,
+                            }
+                        })
+                            .then((res) => {
+                                if (res != null && res.data.result){
+                                    self.$message('添加管理者成功!');
+                                    this.getData();
+                                }
+                                else
+                                    self.$message.error("添加管理者失败！");
+                                self.$modal.hide('add-admin-modal');
+                            })
+                    }
+                })
             },
             handleCurrentChange(val) {
                 this.cur_page = val;
@@ -127,10 +199,36 @@
             searchHandle() {
                 this.getData();
             },
-            handleVote(id) {
-                this.linkToOtherUrl(id, '/collect/');
+            handleGallery(id) {
+                this.linkToOtherUrl(id, '/gallery-handle/');
             }
         }
     }
 </script>
+<style type="text/css">
+    .search_input {
+        width: 150px!important;
+    }
+    .modal_close_btn {
+        float: right;
+        margin: 15px 20px 0 0;
+        color: #999;
+    }
+
+    .el-icon-close:hover {
+        color: #333;
+        cursor: pointer;
+    }
+
+    .modal-form {
+        margin-top: 40px;
+    }
+    .top-btn-left{
+        float: left;
+    }
+
+    .top-btn-right {
+        margin-right: 20px;
+    }
+</style>
 

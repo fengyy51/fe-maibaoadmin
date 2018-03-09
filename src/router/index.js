@@ -110,6 +110,11 @@ var router = new Router({
                     path:'/gallery',
                     component:resolve=>require(['../components/page/Gallery-list.vue'],resolve)
                 },
+                //发起投票
+                {
+                    path: '/gallery-handle/:id',
+                    component: resolve => require(['../components/page/Gallery-handle.vue'], resolve)
+                },
             ],
         },
         {
