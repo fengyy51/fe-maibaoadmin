@@ -46,7 +46,7 @@
             </el-pagination>
         </div>
         <!--增加活动管理员-->
-        <modal name="add-admin-modal" transition="pop-out" :height="420" :pivotY="0.2">
+        <modal name="add-admin-modal" transition="pop-out" :height="320" :pivotY="0.2">
             <div class="modal_close_btn">
                 <i class="el-icon-close" @click="closeAdminModal"></i>
             </div>

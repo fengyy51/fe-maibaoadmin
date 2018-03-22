@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <router-link to="/home">
-            <div class="logo">宾王158管理系统</div>
+            <div class="logo">活动管理系统</div>
         </router-link>
         <div class="user-info">
             <el-dropdown trigger="click" @command="handleCommand">
@@ -9,7 +9,7 @@
                     <img class="user-logo"src="../../../static/img/user.png"> {{username}}
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item command="updatepwd">修改密码</el-dropdown-item>
+                    <!--<el-dropdown-item command="updatepwd">修改密码</el-dropdown-item>-->
                     <el-dropdown-item command="loginout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>

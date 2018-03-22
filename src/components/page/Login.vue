@@ -15,9 +15,9 @@
                 <div class="login-btn">
                     <el-button type="primary" id="logbtn" @click="submitForm('ruleForm')">登录</el-button>
                 </div>
-                <div class="register-btn">
-                    <span class="register-content" v-on:click="ToRegister">还没有账号？马上注册</span>
-                </div>
+                <!--<div class="register-btn">-->
+                    <!--<span class="register-content" v-on:click="ToRegister">还没有账号？马上注册</span>-->
+                <!--</div>-->
             </el-form>
         </div>
         <div class="ms-login" v-show="showRegister">
@@ -46,7 +46,10 @@
     </div>
 </template>
 <script>
+    import $ from 'jquery';
+    import {crossUrl} from '../../util/common-helper.js';
 export default {
+
     data: function() {
         return {
             showLogin:true,
@@ -148,37 +151,76 @@ export default {
                 if (valid) {
                     var userName = self.ruleForm.username;
                     var password = self.ruleForm.password;
-
-                    self.$axios({
-                            method: 'post',
-                            url: '/login',
-                            data: {
-                                username: userName,
-                                password: password
+                    $.ajax({
+                        url:crossUrl+"/login/",
+                        crossDomain: true,
+                        type:"POST",
+                        async:false,
+                        xhrFields: {
+                            'Access-Control-Allow-Origin': crossUrl
+                        },
+                        data: {
+                            username: userName,
+                            password: password
+                        },
+                        success:function (data) {
+                            var username=data.username;
+                            if(username){
+                                var message=username.message;
+                                var code=username.code;
+                                if(code==1){
+                                    self.$message.error("用户未启用！");
+                                }else if(code==2){
+                                    self.$message.error("用户名或密码输入有误！");
+                                }
                             }
-                        })
-                        //60为60s，localstorage过期后自动失效，本程序设置为1小时后自动失效，之后需要重新登录
-                        .then(function(res) {
-                            if (res != null && res.data.result) {
+                            if(data.token){
                                 self.$wsCache.set("username", userName, {
                                     exp: 60 * 60
                                 });
                                 self.$router.push('/home');
-                            } else
-                            {
-                                document.getElementById('logbtn').disabled=false;
-                                self.$message.error("用户名或密码输入有误！");
                             }
-                        })
-                        .catch(function(error) {
-                            document.getElementById('logbtn').disabled=false;
+
+//                    console.log(new Date(parseInt(res[0].addtime*1000)).getHours()+":"+new Date(parseInt(res[0].addtime*1000)).getMinutes()+":"+new Date(parseInt(res[0].addtime*1000)).getSeconds());
+
+
+                        },
+                        error:function (error) {
                             console.log(error);
-                        });
-                } else {
-//                    弹出错误，Element 注册了一个$message方法用于调用，Message 可以接收一个字符串作为参数，它会被显示为正文内容。设置type字段可以定义不同的状态//
-                    self.$message.error("输入有误");
-                    document.getElementById('logbtn').disabled=false;
-                    return false;
+                            self.$message.error("用户登录失败！");
+                        }
+                    });
+//                    self.$axios({
+//                            method: 'post',
+//                            url: '/login',
+////                            headers
+//                            data: {
+//                                username: userName,
+//                                password: password
+//                            }
+//                        })
+//                        //60为60s，localstorage过期后自动失效，本程序设置为1小时后自动失效，之后需要重新登录
+//                        .then(function(res) {
+//                            if (res != null && res.data.result) {
+//                                self.$wsCache.set("username", userName, {
+//                                    exp: 60 * 60
+//                                });
+//                                self.$router.push('/home');
+//                            } else
+//                            {
+//                                document.getElementById('logbtn').disabled=false;
+//                                self.$message.error("用户名或密码输入有误！");
+//                            }
+//                        })
+//                        .catch(function(error) {
+//                            document.getElementById('logbtn').disabled=false;
+//                            console.log(error);
+//                        });
+//                } else {
+////                    弹出错误，Element 注册了一个$message方法用于调用，Message 可以接收一个字符串作为参数，它会被显示为正文内容。设置type字段可以定义不同的状态//
+//                    self.$message.error("输入有误");
+//                    document.getElementById('logbtn').disabled=false;
+//                    return false;
                 }
             });
         },

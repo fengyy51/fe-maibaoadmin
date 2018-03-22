@@ -545,7 +545,6 @@
                             self.tableData=res.data.list;
                             self.sum = res.data.sum;
                             self.approved_num = res.data.approveSum;
-
                         }
                     })
             },
