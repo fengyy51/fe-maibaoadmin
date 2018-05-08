@@ -43,7 +43,9 @@
                     <el-button type="success" @click="searchHandle">查看具体数据</el-button>
                     <el-button type="success" @click="searchHandleNum">查看统计个数</el-button>
                 </el-form-item>
-                <el-tag type="danger" class="collect_top_tag">共{{sum}}个结果</el-tag>
+                <el-tag type="danger" class="collect_top_tag" v-if="sum">共{{sum}}个结果</el-tag>
+                <el-tag type="danger" class="collect_top_tag" v-else>共{{numsum}}个结果</el-tag>
+
             </el-form>
         </div>
         <el-table :data="tableData" border style="width: 100%;display: none;" id="detailtable">
@@ -229,7 +231,7 @@
                 this.getData();
             }, handleSizeChangeNum(val) {
                 this.numpageSum=val;
-                this.getData();
+                this.getNumData();
             },
             handleCurrentChange(val) {
                 this.cur_page = val;
