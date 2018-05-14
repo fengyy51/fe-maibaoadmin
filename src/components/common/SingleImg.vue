@@ -89,7 +89,7 @@ export default {
                     this.$message.error('上传头像图片要求JPG或PNG格式!');
                 }
                 if (!isLt5M) {
-                    this.$message.error('上传头像图片大小不能超过 5MB!');
+                    this.$message.error('上传图片大小不能超过 5MB!');
                 }
                 return (isJPG || isPNG) && isLt5M;
             }
