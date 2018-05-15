@@ -25,14 +25,17 @@
             </el-form>
         </div>
         <!--投票活动模态框-->
-        <modal name="vote-modal" transition="pop-out" :height="680" :resizable="true" :pivotY="0.2">
+        <modal name="vote-modal" transition="pop-out" :height="780" :resizable="true" :pivotY="0.1">
             <div class="modal_close_btn">
                 <i class="el-icon-close" @click="closeVoteModal"></i>
             </div>
             <div class="modal-form">
                 <el-form ref="voteForm" :model="voteForm" :rules="rules" label-width="80px" >
-                    <el-form-item label="活动序号" prop="id" style="display: none">
+                    <el-form-item label="投票活动序号" prop="id" style="display: none">
                         <el-input v-model="voteForm.id"  class="form_middle" ></el-input>
+                    </el-form-item>
+                    <el-form-item label="关联活动序号" prop="actId" >
+                        <el-input v-model="voteForm.actId"  class="form_middle" ></el-input>
                     </el-form-item>
                     <el-form-item label="活动名称" prop="act_name">
                         <el-input v-model="voteForm.act_name"  class="form_middle"></el-input>
@@ -88,6 +91,8 @@
         <!--投票活动模态框结束-->
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="id" label="投票活动序号" sortable>
+            </el-table-column>
+            <el-table-column prop="actId" label="关联活动序号" sortable>
             </el-table-column>
             <el-table-column prop="actName" label="活动名称">
             </el-table-column>
@@ -242,6 +247,7 @@
                             method:'post',
                             params:{
                                 id:parseInt(self.voteForm.id),
+                                actId:parseInt(self.voteForm.actId),
                                 actName:self.voteForm.act_name,
                                 begin:self.voteForm.begin,
                                 end:self.voteForm.end,
@@ -301,7 +307,7 @@
                         .then((res) => {
                             if (res != null) {
                                 self.$message("删除成功");
-                                self.getData();
+                                self.$router.push('/vote-data-list');
                             }
                         })
                 }).catch(function() {
@@ -321,6 +327,7 @@
                     .then((res) => {
                         if (res != null) {
                             self.voteForm.id=id;
+                            self.voteForm.actId=res.data.actId;
                             self.voteForm.act_name=res.data.actName;
                             self.tempBegin=res.data.begin;
                             self.tempEnd=res.data.end;

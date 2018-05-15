@@ -388,6 +388,7 @@ export default {
                     }
                     var wsCache = window.$wsCache;
                     var username=wsCache.get("username");
+
                     self.$axios({
                         url:'/collect/post-vote',
                         method:'post',

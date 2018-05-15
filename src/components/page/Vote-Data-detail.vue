@@ -10,8 +10,11 @@
         </div>
         <div class="big_form">
             <el-form :model="voteDataForm" :rules="rules" ref="voteDataForm" label-width="80px" :inline="true">
+                <el-form-item label="投票活动序号" prop="actId">
+                    <el-input v-model="voteDataForm.actId" class="form_large"></el-input>
+                </el-form-item>
                 <el-form-item label="作品内容" prop="content">
-                    <el-input v-model="voteDataForm.content" class="form_large"></el-input>
+                    <el-input type="textarea" :rows="5" v-model="voteDataForm.content" class="form_large"></el-input>
                 </el-form-item>
                 <el-form-item label="图片">
                     <MultiImg :imgArray="resources.voteDataImgs" :actionUrl="imgUploadUrl" v-on:imgsChange="voteDataImgsChange" v-on:handleChange="handleVoteDataImgsChange"></MultiImg>
@@ -52,13 +55,15 @@
                 type_name: '',
                 voteDataForm: {
                     content: '',
+                    actId:''
                 },
                 rules: {
                     content: [{
                         required: true,
                         message: '请输入作品相关内容',
                         trigger: 'blur'
-                    }]
+                    }],
+
                 },
                 resources: {
                     voteDataImgs: []
@@ -108,6 +113,7 @@
                     .then((res) => {
                         if (res != null) {
                             let obj = res.data;
+                            self.voteDataForm.actId=obj.actId;
                             self.voteDataForm.content = obj.content;
                             let imgs = obj.voteDataImgs;
                             if(imgs.length>=1){
@@ -142,6 +148,7 @@
                                 url: '/vote-data/add',
                                 method: 'post',
                                 data: {
+                                    actId:parseInt(self.voteDataForm.actId),
                                     content: self.voteDataForm.content,
                                     voteDataImgs:JSON.stringify(voteDataImgs)
                                 }
@@ -160,6 +167,7 @@
                                 method: 'post',
                                 data: {
                                     id: self.id,
+                                    actId:parseInt(self.voteDataForm.actId),
                                     content: self.voteDataForm.content,
                                     voteDataImgs:JSON.stringify(voteDataImgs)
                                 }
