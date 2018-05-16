@@ -69,7 +69,8 @@
                     voteDataImgs: []
                 },
                 imgUploadUrl: uploadImgUrl,
-                isVoteDataImgsChange: false
+                isVoteDataImgsChange: false,
+                actId:0
             }
         },
         mounted() {
@@ -135,6 +136,7 @@
             },
             onSubmit() {
                 const self = this;
+
                 this.$refs["voteDataForm"].validate((valid) => {
                     if (valid) {
                         let voteDataImgs = [];
@@ -142,13 +144,16 @@
                         for (let s in imgs) {
                             voteDataImgs.push(imgs[s].url);
                         }
+                        if(self.voteDataForm.actId!=""){
+                            self.actId=parseInt(self.voteDataForm.actId);
+                        }
                         if (self.id == 0) {
                             //添加
                             self.$axios({
                                 url: '/vote-data/add',
                                 method: 'post',
                                 data: {
-                                    actId:parseInt(self.voteDataForm.actId),
+                                    actId:self.actId,
                                     content: self.voteDataForm.content,
                                     voteDataImgs:JSON.stringify(voteDataImgs)
                                 }
@@ -167,7 +172,7 @@
                                 method: 'post',
                                 data: {
                                     id: self.id,
-                                    actId:parseInt(self.voteDataForm.actId),
+                                    actId:self.actId,
                                     content: self.voteDataForm.content,
                                     voteDataImgs:JSON.stringify(voteDataImgs)
                                 }
