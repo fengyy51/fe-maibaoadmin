@@ -36,9 +36,9 @@
                 <el-menu-item index="/user-behavior"><i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;&nbsp;用户行为习惯分析</el-menu-item>
             </el-submenu>
             <el-menu-item index="/gallery"><i class="fa fa-file-image-o" aria-hidden="true"></i>&nbsp;&nbsp;专题管理</el-menu-item>
-            <el-menu-item index="/coupon">
-                <i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;&nbsp;优惠管理
-            </el-menu-item>
+            <!--<el-menu-item index="/coupon">-->
+                <!--<i class="fa fa-credit-card" aria-hidden="true"></i>&nbsp;&nbsp;优惠管理-->
+            <!--</el-menu-item>-->
             <!--<el-menu-item index="/map">-->
                 <!--<i class="fa fa-map" aria-hidden="true"></i>&nbsp;&nbsp;地图 demo-->
             <!--</el-menu-item>-->

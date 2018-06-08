@@ -58,11 +58,11 @@
                     actId:''
                 },
                 rules: {
-                    content: [{
-                        required: true,
-                        message: '请输入作品相关内容',
-                        trigger: 'blur'
-                    }],
+//                    content: [{
+//                        required: true,
+//                        message: '请输入作品相关内容',
+//                        trigger: 'blur'
+//                    }],
 
                 },
                 resources: {
@@ -136,7 +136,8 @@
             },
             onSubmit() {
                 const self = this;
-
+                var wsCache = window.$wsCache;
+                var username=wsCache.get("username");
                 this.$refs["voteDataForm"].validate((valid) => {
                     if (valid) {
                         let voteDataImgs = [];
@@ -154,8 +155,10 @@
                                 method: 'post',
                                 data: {
                                     actId:self.actId,
+                                    username:username,
                                     content: self.voteDataForm.content,
-                                    voteDataImgs:JSON.stringify(voteDataImgs)
+                                    voteDataImgs:JSON.stringify(voteDataImgs),
+
                                 }
                             })
                                 .then((res) => {

@@ -209,10 +209,13 @@
             },
             getData() {
                 const self = this;
+                var wsCache = window.$wsCache;
+                var username=wsCache.get("username");
                 self.$axios({
                     url: '/vote-data/list',
                     method: 'get',
                     params: {
+                        username:username,
                         content:self.search_form.content,
                         actId:self.search_form.actId,
                         curPage: self.cur_page,

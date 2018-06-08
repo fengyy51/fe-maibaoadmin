@@ -77,13 +77,13 @@
                         <el-checkbox label="身份证" name="reg"></el-checkbox>
                         <el-checkbox label="地址" name="reg"></el-checkbox>
                     </el-checkbox-group>
-                    <el-button size="small" type="primary" id="regsort">排序</el-button>
+                    <!--<el-button size="small" type="primary" id="regsort">排序</el-button>-->
                 </el-form-item>
                 <br/>
                 <el-form-item label="添加报名项" prop="reg_item" id="reg_item_content" >
                     <div id="reg_item"></div>
                     <el-button size="small" type="primary" @click="onAddInfo">管理自定义报名项</el-button>
-                    <el-button size="small" type="primary" id="regitemsort">排序</el-button>
+                    <!--<el-button size="small" type="primary" id="regitemsort">排序</el-button>-->
                 </el-form-item>
                 <br/>
                 <el-form-item label="活动详情">
